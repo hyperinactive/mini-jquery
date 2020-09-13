@@ -15,8 +15,9 @@ $(() => {
   $("li").css("font-family", "sans-serif");
   $("li").each(function (i) {
     console.log("<li>: " + i);
-  })
-  $("li").each(function (i) {
+  });
+  $("li").each(function (element, i) {
+    console.log(`This is i: ${i}`);
     if (i % 2 === 0) {
       $(this).css("color", "green");
     } else {
