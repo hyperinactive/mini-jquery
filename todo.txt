@@ -1,0 +1,45 @@
+[]  make it object oriented - keep it that way :o
+[]  enable common Jquery functions
+---------------------------------------
+~  temp 
+[] refactor obj_ properties 
+---------------------------------------
+~  list of common Jquery functions
+
+[]  selector
+  []  
+[x]  css
+[x]  on
+[]  off
+[x]  each
+[]  map
+[]  now
+[x]  hide
+[x]  show
+[]  text
+  []  text-get
+  []  text-set
+[]  html
+  []  html-get
+  []  html-set
+  []  outer-html-get
+[]  prop
+[]  attr
+  []  attr-get
+  []  attr-set
+[]  removeAttr
+[]  height
+  []  height-get
+  []  height-set
+[]  empty
+[]  find
+[]  contains
+[]  filter
+[]  addClass
+[]  removeClass
+[]  toggleClass
+[]  hasClass
+[]  parent
+[]  sibilings
+[]  remove
+[]  

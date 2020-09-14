@@ -22,11 +22,15 @@ $(() => {
     console.log("<li>: " + i);
   });
   $("li").obj_each(function (element, i) {
-    console.log(`This is i: ${i}`);
     if (i % 2 === 0) {
       $(this).obj_css("color", "green");
     } else {
       $(this).obj_css("color", "yellow");
     }
   });
+
+  $("p").hide();
+  $("h4").obj_css("color", "red");
+  console.log($("h4").show().len);
+
 });

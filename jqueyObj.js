@@ -39,6 +39,16 @@ class JQueryCollection {
       bindFn(element, i);
     });
   }
+  hide() {
+    this.collection.forEach((element) => {
+      element.style.display = "none";
+    });
+  }
+  show() {
+    this.collection.forEach((element) => {
+      element.style.display = "block";
+    });
+  }
 }
 
 //Sets up the collection attaching all the properties onto it
@@ -86,7 +96,10 @@ const makeNewCollection = (collection) => {
 };
 
 const $ = (...arguments) => {
-  console.log(arguments);
+  console.log(`These are the argmunets: `);
+  arguments.forEach((el) => {
+    console.log(el);
+  })
 
   //handle functions
   if (typeof arguments[0] === "function") {
@@ -99,8 +112,6 @@ const $ = (...arguments) => {
     //selector
     const selector = arguments[0];
     const collection = document.querySelectorAll(selector);
-
-    makeNewCollection(collection);
     const coll = new JQueryCollection(collection);
 
     return coll;
@@ -110,13 +121,9 @@ const $ = (...arguments) => {
      * bad code but it works
      */
   } else if (arguments[0] instanceof HTMLElement) {
-    console.log("HTML element");
+    //console.log("HTML element");
     const collection = [arguments[0]];
     const coll = new JQueryCollection([arguments[0]]);
-    makeNewCollection(collection);
     return coll;
   }
 };
-
-//todo - make it more object oriented ~ eg. JQueryCollection object where
-//instead of .on .each -> on and each become it's functions (properties)
