@@ -1,27 +1,32 @@
 $(() => {
   console.log("Doc ready");
-  $("body").css({
+  $("body").obj_css({
     backgroundColor: "black",
     color: "white",
   });
-  $("h1").css("color", "red");
-  $("h1").css({
+  $("h1").obj_css("color", "red");
+  $("h1").obj_css({
     cursor: "pointer",
     fontFamily: "sans-serif",
   });
+  /*
   $("h1").on("click", () => {
     console.log("Clicked");
   });
-  $("li").css("font-family", "sans-serif");
-  $("li").each(function (i) {
+  */
+ $("h1").obj_on("click", () => {
+  console.log("Clicked");
+});
+  $("li").obj_css("font-family", "sans-serif");
+  $("li").obj_each(function (i) {
     console.log("<li>: " + i);
   });
-  $("li").each(function (element, i) {
+  $("li").obj_each(function (element, i) {
     console.log(`This is i: ${i}`);
     if (i % 2 === 0) {
-      $(this).css("color", "green");
+      $(this).obj_css("color", "green");
     } else {
-      $(this).css("color", "yellow");
+      $(this).obj_css("color", "yellow");
     }
   });
 });
