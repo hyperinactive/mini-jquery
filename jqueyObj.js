@@ -2,13 +2,18 @@ class JQueryCollection {
   constructor(collection) {
     this.collection = collection;
   }
-  obj_log() {
-    console.log(`This is the log of the construsctor: ${this.collection}`);
-  }
   obj_on(eventName, handlerFunction) {
     this.collection.forEach((element) => {
       element.addEventListener(eventName, handlerFunction);
     });
+  }
+  off(eventName, eventHandler) {
+    this.collection.forEach((element) => {
+      element.removeEventListener(eventName, handlerFunction);
+    });
+  }
+  now() {
+    return Date.now();
   }
   obj_css(...cssArguments) {
     //scenario where the strings are passed
@@ -38,6 +43,32 @@ class JQueryCollection {
       //invoke the bound function for each element
       bindFn(element, i);
     });
+  }
+  map(callback) {
+    let arr = Array.from(this.collection);
+    arr.map((element, i) => {
+      const bindFn = callback.bind(element);
+      bindFn(element, i);
+    });
+  }
+  /**
+   * html() only returns one inner html attribute of an element
+   * lazy fix - for now
+   */
+  html() {
+    const chosenOne = this.collection[0];
+    return chosenOne.innerHTML;
+  }
+  /**
+   * original text() returns a string, not an array
+   * array more manageable -> thus not returning strings
+   */
+  text() {
+    let array = [];
+    this.collection.forEach((element) => {
+      array.push(element.textContent);
+    });
+    return array;
   }
   hide() {
     this.collection.forEach((element) => {
@@ -96,10 +127,10 @@ const makeNewCollection = (collection) => {
 };
 
 const $ = (...arguments) => {
-  console.log(`These are the argmunets: `);
+  //console.log(`These are the argmunets: `);
   arguments.forEach((el) => {
-    console.log(el);
-  })
+    //console.log(el);
+  });
 
   //handle functions
   if (typeof arguments[0] === "function") {
@@ -107,9 +138,14 @@ const $ = (...arguments) => {
     const readyFunction = arguments[0];
     document.addEventListener("DOMContentLoaded", readyFunction);
 
-    //handle strings
+    /**
+     * handle string
+     * handle selection of:
+     * classes
+     * ids
+     * element types
+     */
   } else if (typeof arguments[0] === "string") {
-    //selector
     const selector = arguments[0];
     const collection = document.querySelectorAll(selector);
     const coll = new JQueryCollection(collection);
@@ -119,11 +155,18 @@ const $ = (...arguments) => {
     /**
      * handle $(this)
      * bad code but it works
+     * ask if the instane if an HTML
      */
   } else if (arguments[0] instanceof HTMLElement) {
     //console.log("HTML element");
     const collection = [arguments[0]];
     const coll = new JQueryCollection([arguments[0]]);
+    return coll;
+
+    //handle null selection
+  } else if (!arguments[0]) {
+    //console.log("Args are null");
+    const coll = new JQueryCollection(arguments[0]);
     return coll;
   }
 };

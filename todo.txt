@@ -1,26 +1,30 @@
-[]  make it object oriented - keep it that way :o
+[x]  object to house the props
 []  enable common Jquery functions
+[]  function nesting inside class properties (?)
 ---------------------------------------
 ~  temp 
-[] refactor obj_ properties 
+[] refactor obj_ properties
 ---------------------------------------
 ~  list of common Jquery functions
 
-[]  selector
-  []  
+[x]  selector
+  [x]  select HTML
+  [x]  select by class
+  [x]  select by id
 [x]  css
 [x]  on
-[]  off
+[x]  off
 [x]  each
-[]  map
-[]  now
+[x]  map
+[]  slice
+[x]  now
 [x]  hide
 [x]  show
 []  text
-  []  text-get
+  [x]  text-get
   []  text-set
 []  html
-  []  html-get
+  [x]  html-get
   []  html-set
   []  outer-html-get
 []  prop
@@ -28,9 +32,6 @@
   []  attr-get
   []  attr-set
 []  removeAttr
-[]  height
-  []  height-get
-  []  height-set
 []  empty
 []  find
 []  contains
@@ -42,4 +43,5 @@
 []  parent
 []  sibilings
 []  remove
-[]  
+[]  parseJSON
+[]  parseHTML
