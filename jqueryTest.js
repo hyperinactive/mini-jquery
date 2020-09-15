@@ -35,6 +35,10 @@ $(() => {
   console.log(`This is html(): ${$("button").html()}`);
 
   $("li").map(function (element, i) {
-    console.log(`${i+1} Mississippi`);
-  })
+    console.log(`${i + 1} Mississippi`);
+  });
+
+  console.log($("input").attr("checked"));
+
+  $(".empty-me").empty();
 });

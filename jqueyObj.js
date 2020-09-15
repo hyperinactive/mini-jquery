@@ -15,6 +15,22 @@ class JQueryCollection {
   now() {
     return Date.now();
   }
+  empty() {
+    let chosenOne = this.collection[0];
+    //as long as there are children -> remove
+    while (chosenOne.firstChild) {
+      chosenOne.removeChild(chosenOne.firstChild);
+    }
+  }
+  find(selector) {
+    return this.collection.querySelectorAll(selector);
+  }
+  attr(attribute) {
+    return this.collection[0].getAttribute(attribute);
+  }
+  removeAttr(attribute) {
+    this.collection[0].removeAttribute(attribute);
+  }
   obj_css(...cssArguments) {
     //scenario where the strings are passed
     if (typeof cssArguments[0] === "string") {
@@ -69,6 +85,20 @@ class JQueryCollection {
       array.push(element.textContent);
     });
     return array;
+  }
+  hasClass(className) {
+    return this.collection[0].classList.contains(className);
+  }
+  addClass(className) {
+    this.collection.forEach((element) => {
+      element.classList.add(className);
+    });
+  }
+  removeClass(className) {
+    this.collection.forEach((element) => {
+      if (element.classList.contains(className))
+        element.classList.remove(className);
+    });
   }
   hide() {
     this.collection.forEach((element) => {
