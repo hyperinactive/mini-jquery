@@ -1,9 +1,9 @@
 [x]  object to house the props
 []  enable common Jquery functions
-[]  function nesting inside class properties (?) function chaining
+[x]  function nesting inside class properties (?) function chaining
 ---------------------------------------
 ~  temp 
-[] refactor obj_ properties
+[x] refactor obj_ properties
 ---------------------------------------
 ~  list of common Jquery functions
 
@@ -20,17 +20,16 @@
 [x]  now
 [x]  hide
 [x]  show
-[]  text
+[x]  text
   [x]  text-get
-  []  text-set
-[]  html
+  [x]  text-set
+[x]  html
   [x]  html-get
-  []  html-set
-  []  outer-html-get
-[]  prop
-[]  attr
+  [x]  html-set
+[x]  prop
+[x]  attr
   [x]  attr-getx
-  []  attr-set
+  [x]  attr-set
 [x]  removeAttr
 [x]  empty
 [x]  find

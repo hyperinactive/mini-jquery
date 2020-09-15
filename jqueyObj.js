@@ -2,15 +2,17 @@ class JQueryCollection {
   constructor(collection) {
     this.collection = collection;
   }
-  obj_on(eventName, handlerFunction) {
+  on(eventName, handlerFunction) {
     this.collection.forEach((element) => {
       element.addEventListener(eventName, handlerFunction);
     });
+    return this;
   }
   off(eventName, eventHandler) {
     this.collection.forEach((element) => {
       element.removeEventListener(eventName, handlerFunction);
     });
+    return this;
   }
   now() {
     return Date.now();
@@ -23,15 +25,22 @@ class JQueryCollection {
     }
   }
   find(selector) {
-    return this.collection.querySelectorAll(selector);
+    this.collection = this.collection.querySelectorAll(selector);
+    return this;
   }
-  attr(attribute) {
-    return this.collection[0].getAttribute(attribute);
+  attr(attribute, number = 0) {
+    if (number === 0) {
+      return this.collection[0].getAttribute(attribute);
+    } else {
+      this.collection[0].setAttribute(attribute, number);
+      return this;
+    }
   }
   removeAttr(attribute) {
     this.collection[0].removeAttribute(attribute);
+    return this;
   }
-  obj_css(...cssArguments) {
+  css(...cssArguments) {
     //scenario where the strings are passed
     if (typeof cssArguments[0] === "string") {
       //"color", "red"
@@ -50,8 +59,9 @@ class JQueryCollection {
         });
       });
     }
+    return this;
   }
-  obj_each(callback) {
+  each(callback) {
     //iterate over all of the elements
     this.collection.forEach((element, i) => {
       //bind the function to the elements themselves
@@ -59,6 +69,7 @@ class JQueryCollection {
       //invoke the bound function for each element
       bindFn(element, i);
     });
+    return this;
   }
   map(callback) {
     let arr = Array.from(this.collection);
@@ -66,25 +77,37 @@ class JQueryCollection {
       const bindFn = callback.bind(element);
       bindFn(element, i);
     });
+    return this;
   }
-  /**
-   * html() only returns one inner html attribute of an element
-   * lazy fix - for now
-   */
-  html() {
-    const chosenOne = this.collection[0];
-    return chosenOne.innerHTML;
+  html(html = null) {
+    if (html) {
+      this.collection.forEach((element) => {
+        element.innerHTML = html;
+      });
+      return this;
+    } else {
+      return this.collection[0].innerHTML;
+    }
+  }
+  prop(outerHTML) {
+    return this.collection[0].outerHTML;
   }
   /**
    * original text() returns a string, not an array
    * array more manageable -> thus not returning strings
    */
-  text() {
-    let array = [];
-    this.collection.forEach((element) => {
-      array.push(element.textContent);
-    });
-    return array;
+  text(text = null) {
+    if (text) {
+      this.collection.forEach((element) => {
+        element.textContent = text;
+      });
+    } else {
+      let array = [];
+      this.collection.forEach((element) => {
+        array.push(element.textContent);
+      });
+      return array;
+    }
   }
   hasClass(className) {
     return this.collection[0].classList.contains(className);
@@ -104,11 +127,13 @@ class JQueryCollection {
     this.collection.forEach((element) => {
       element.style.display = "none";
     });
+    return this;
   }
   show() {
     this.collection.forEach((element) => {
       element.style.display = "block";
     });
+    return this;
   }
 }
 

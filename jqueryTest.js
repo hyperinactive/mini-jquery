@@ -1,34 +1,34 @@
 $(() => {
   console.log("Doc ready");
-  $("body").obj_css({
+  $("body").css({
     backgroundColor: "black",
     color: "white",
   });
-  $("h1").obj_css("color", "red");
-  $("h1").obj_css({
+  $("h1").css("color", "red");
+  $("h1").css({
     cursor: "pointer",
     fontFamily: "sans-serif",
   });
-  $("h1").obj_on("click", () => {
+  $("h1").on("click", () => {
     console.log("Clicked");
   });
-  $("li").obj_css("font-family", "sans-serif");
-  $("li").obj_each(function (i) {
-    console.log("obj_each <li>: " + i);
+  $("li").css("font-family", "sans-serif");
+  $("li").each(function (i) {
+    console.log("each <li>: " + i);
   });
-  $("li").obj_each(function (element, i) {
+  $("li").each(function (element, i) {
     if (i % 2 === 0) {
-      $(this).obj_css("color", "green");
+      $(this).css("color", "green");
     } else {
-      $(this).obj_css("color", "yellow");
+      $(this).css("color", "yellow");
     }
   });
 
   $("p").hide();
-  $("h4").obj_css("color", "red");
+  $("h4").css("color", "red");
   $("h4").show();
 
-  $(".cls").obj_css("color", "red");
+  $(".cls").css("color", "red");
   console.log(`Time is: ${$().now()}`);
 
   console.log(`This is text(): ${$("h4").text()}`);
@@ -41,4 +41,27 @@ $(() => {
   console.log($("input").attr("checked"));
 
   $(".empty-me").empty();
+
+  class Test {
+    constructor(string) {
+      this.name = string;
+    }
+    foo() {
+      this.name = this.name + " -- ";
+      return this;
+    }
+    bar() {
+      this.name = this.name + "00";
+      return this;
+    }
+  }
+  const test = new Test("Ovo je string");
+  console.log(test.foo().bar());
+
+  $(".li-cls").css("color", "green").hide();
+  console.log(`This is text(): ${$("h4").text()}`);
+  $("h4").text("T_T");
+  console.log(`This is text() after input: ${$("h4").text()}`);
+
+  
 });
