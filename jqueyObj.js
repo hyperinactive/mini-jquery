@@ -24,6 +24,53 @@ class JQueryCollection {
       chosenOne.removeChild(chosenOne.firstChild);
     }
   }
+  remove() {
+    this.collection.forEach((element) => {
+      element.parentNode.removeChild(element);
+    });
+    return this;
+  }
+  /**
+   * Won't work when called the trad way $.contains
+   * Has to be called $().contains
+   */
+  contains(element, child) {
+    if (element.contains(child) && element !== child) {
+      return true;
+    } else return false;
+  }
+  parseJSON(string) {
+    return JSON.parse(string);
+  }
+  parseHTML(string) {
+    let tmp = document.implementation.createHTMLDocument();
+    tmp.body.innerHTML = string;
+    return tmp.body.children;
+  }
+  parent() {
+    this.collection = this.collection[0].parentNode;
+    return this;
+  }
+  siblings() {
+    const element = this.collection[0];
+    const parent = element.parentNode;
+    const children = [...parent.children];
+    const siblings = children.filter((child) => child !== element);
+    this.collection = siblings;
+    return this;
+  }
+  /**
+   * Because node list is expected a fragment is made
+   * Its children are to be returned as a node list
+   */
+  clone() {
+    //console.log(`Pre clone: ${this.collection}`);
+    let fragment = document.createDocumentFragment();
+    fragment.appendChild(this.collection[0].cloneNode(true));
+    this.collection = fragment.childNodes;
+    //console.log(`Post clone: ${this.collection}`);
+    return this;
+  }
   find(selector) {
     this.collection = this.collection.querySelectorAll(selector);
     return this;
@@ -79,6 +126,10 @@ class JQueryCollection {
     });
     return this;
   }
+  slice(start, end) {
+    this.collection = this.collection.slice(start, end);
+    return this;
+  }
   html(html = null) {
     if (html) {
       this.collection.forEach((element) => {
@@ -109,6 +160,27 @@ class JQueryCollection {
       return array;
     }
   }
+  append(child) {
+    const element = document.querySelector(child);
+    this.collection = this.collection[0].insertAdjacentElement(
+      "afterend",
+      element
+    );
+  }
+  before(child) {
+    const element = document.querySelector(child);
+    this.collection = this.collection[0].insertAdjacentElement(
+      "beforebegin",
+      element
+    );
+  }
+  after(child) {
+    const element = document.querySelector(child);
+    this.collection = this.collection[0].insertAdjacentElement(
+      "afterend",
+      element
+    );
+  }
   hasClass(className) {
     return this.collection[0].classList.contains(className);
   }
@@ -121,6 +193,11 @@ class JQueryCollection {
     this.collection.forEach((element) => {
       if (element.classList.contains(className))
         element.classList.remove(className);
+    });
+  }
+  toggleClass(className) {
+    this.collection.forEach((element) => {
+      element.classList.toggle(className);
     });
   }
   hide() {
@@ -137,56 +214,9 @@ class JQueryCollection {
   }
 }
 
-//Sets up the collection attaching all the properties onto it
-const makeNewCollection = (collection) => {
-  //.on(string)
-  collection.on = (eventName, handlerFunction) => {
-    collection.forEach((element) => {
-      element.addEventListener(eventName, handlerFunction);
-    });
-  };
-
-  //.each()
-  //won't work with arrow functions though
-  //call each, accept a callback
-  collection.each = (callback) => {
-    //iterate over all of the elements
-    collection.forEach((element, i) => {
-      //bind the function to the elements themselves
-      const bindFn = callback.bind(element);
-      //invoke the bound function for each element
-      bindFn(element, i);
-    });
-  };
-
-  collection.css = (...cssArguments) => {
-    //scenario where the strings are passed
-    if (typeof cssArguments[0] === "string") {
-      //"color", "red"
-      const [property, value] = cssArguments;
-      collection.forEach((element) => {
-        element.style[property] = value;
-      });
-
-      //scenario where an object is passed
-    } else if (typeof cssArguments[0] === "object") {
-      //Object.entries -> basically all of the properties of an object
-      const cssProps = Object.entries(cssArguments[0]);
-      collection.forEach((element) => {
-        cssProps.forEach(([property, value]) => {
-          element.style[property] = value;
-        });
-      });
-    }
-  };
-};
+//////////////////////////////////////////////////////////////////////////
 
 const $ = (...arguments) => {
-  //console.log(`These are the argmunets: `);
-  arguments.forEach((el) => {
-    //console.log(el);
-  });
-
   //handle functions
   if (typeof arguments[0] === "function") {
     //document ready listener
@@ -213,7 +243,6 @@ const $ = (...arguments) => {
      * ask if the instane if an HTML
      */
   } else if (arguments[0] instanceof HTMLElement) {
-    //console.log("HTML element");
     const collection = [arguments[0]];
     const coll = new JQueryCollection([arguments[0]]);
     return coll;

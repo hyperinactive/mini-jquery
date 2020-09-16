@@ -55,7 +55,7 @@ $(() => {
       return this;
     }
   }
-  const test = new Test("Ovo je string");
+  const test = new Test("This be a string");
   console.log(test.foo().bar());
 
   $(".li-cls").css("color", "green").hide();
@@ -63,5 +63,11 @@ $(() => {
   $("h4").text("T_T");
   console.log(`This is text() after input: ${$("h4").text()}`);
 
-  
+  console.log($(".something").siblings());
+
+  console.log($().contains(document.documentElement, document.body));
+
+  $("h4").append(".something");
+  $("h4").after(".something");
+  $(".something").clone().append(".some-class");
 });

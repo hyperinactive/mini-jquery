@@ -1,9 +1,6 @@
 [x]  object to house the props
-[]  enable common Jquery functions
+[x]  enable common Jquery functions
 [x]  function nesting inside class properties (?) function chaining
----------------------------------------
-~  temp 
-[x] refactor obj_ properties
 ---------------------------------------
 ~  list of common Jquery functions
 
@@ -16,7 +13,7 @@
 [x]  off
 [x]  each
 [x]  map
-[]  slice
+[x]  slice
 [x]  now
 [x]  hide
 [x]  show
@@ -33,14 +30,18 @@
 [x]  removeAttr
 [x]  empty
 [x]  find
-[]  contains
+[x]  contains
 []  filter
 [x]  addClass
 [x]  removeClass
-[]  toggleClass
+[x]  toggleClass
 [x]  hasClass
-[]  parent
-[]  sibilings
-[]  remove
-[]  parseJSON
-[]  parseHTML
+[x]  parent
+[x]  sibilings
+[x]  remove
+[x]  clone
+[x]  parseJSON
+[x]  parseHTML
+[x]  after
+[x]  append
+[x]  before
