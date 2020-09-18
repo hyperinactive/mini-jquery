@@ -64,11 +64,9 @@ class JQueryCollection {
    * Its children are to be returned as a node list
    */
   clone() {
-    //console.log(`Pre clone: ${this.collection}`);
     let fragment = document.createDocumentFragment();
     fragment.appendChild(this.collection[0].cloneNode(true));
     this.collection = fragment.childNodes;
-    //console.log(`Post clone: ${this.collection}`);
     return this;
   }
   find(selector) {
@@ -130,16 +128,6 @@ class JQueryCollection {
     this.collection = this.collection.slice(start, end);
     return this;
   }
-  html(html = null) {
-    if (html) {
-      this.collection.forEach((element) => {
-        element.innerHTML = html;
-      });
-      return this;
-    } else {
-      return this.collection[0].innerHTML;
-    }
-  }
   prop(outerHTML) {
     return this.collection[0].outerHTML;
   }
@@ -156,6 +144,21 @@ class JQueryCollection {
       let array = [];
       this.collection.forEach((element) => {
         array.push(element.textContent);
+      });
+      return array;
+    }
+  }
+  //same treatment for html()
+  html(html = null) {
+    if (html) {
+      this.collection.forEach((element) => {
+        element.innerHTML = html;
+      });
+      return this;
+    } else {
+      let array = [];
+      this.collection.forEach((element) => {
+        array.push(element.innerHTML);
       });
       return array;
     }
@@ -219,17 +222,12 @@ class JQueryCollection {
 const $ = (...arguments) => {
   //handle functions
   if (typeof arguments[0] === "function") {
+    
     //document ready listener
     const readyFunction = arguments[0];
     document.addEventListener("DOMContentLoaded", readyFunction);
 
-    /**
-     * handle string
-     * handle selection of:
-     * classes
-     * ids
-     * element types
-     */
+    //handle string selections
   } else if (typeof arguments[0] === "string") {
     const selector = arguments[0];
     const collection = document.querySelectorAll(selector);
@@ -239,8 +237,7 @@ const $ = (...arguments) => {
 
     /**
      * handle $(this)
-     * bad code but it works
-     * ask if the instane if an HTML
+     * check for HTML element
      */
   } else if (arguments[0] instanceof HTMLElement) {
     const collection = [arguments[0]];
@@ -249,7 +246,6 @@ const $ = (...arguments) => {
 
     //handle null selection
   } else if (!arguments[0]) {
-    //console.log("Args are null");
     const coll = new JQueryCollection(arguments[0]);
     return coll;
   }

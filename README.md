@@ -1,0 +1,1 @@
+  Mini-JQuery is a clone project of JQuery aimed at replicating most of the its functions. All is written into a single script file <miniJQueryLib.js> which is to be included into one's static pages to work.
